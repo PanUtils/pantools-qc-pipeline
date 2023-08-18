@@ -46,6 +46,9 @@ rule agat_sp_filter_by_orf_size:
     script:
         "../scripts/filter_by_orf_size.sh"
 
+rule agat_sq_filter_feature_from_fasta:
+    input:
+
 rule filter_annotation:
     input:
         "{}/{{annotation}}_sup={}.gff".format(filtered_annotations, config["orf_size"])

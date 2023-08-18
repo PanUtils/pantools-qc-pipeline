@@ -1,0 +1,18 @@
+import glob
+from pathlib import Path
+
+include: 'rules/data_filter.smk'
+
+
+#### USE CASES ####
+filtered_genomes = config["genomes_filtered"]
+filtered_annotations = config["annotations_filtered"]
+data = {"genome_names": [Path(x).stem for x in
+                         sorted(glob.glob("{genomes}/*.fasta".format(genomes=config["genomes"])))],
+        "annotation_names": [Path(x).stem for x in
+                             sorted(glob.glob("{annotations}/*.gff".format(annotations=config["annotations"])))]}
+
+rule all:
+    input:
+        expand(f"{filtered_genomes}/{{genome}}.filtered.fasta", genome=data["genome_names"]),
+        expand(f"{filtered_annotations}/{{annotation}}.filtered.gff", annotation=data["annotation_names"])
