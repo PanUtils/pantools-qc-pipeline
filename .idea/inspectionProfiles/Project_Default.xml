@@ -1,0 +1,19 @@
+<component name="InspectionProjectProfileManager">
+  <profile version="1.0">
+    <option name="myName" value="Project Default" />
+    <inspection_tool class="PyUnresolvedReferencesInspection" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="ignoredIdentifiers">
+        <list>
+          <option value="workflow.rules.pantools_characterize.*" />
+          <option value="workflow.rules.pantools_construct.*" />
+          <option value="workflow.rules.pantools_explore.*" />
+          <option value="workflow.rules.pantools_map.*" />
+          <option value="workflow.rules.pantools_msa.*" />
+          <option value="workflow.rules.pantools_phylogeny.*" />
+          <option value="workflow.rules.pantools_variation.*" />
+          <option value="workflow.rules.validate_paths.*" />
+        </list>
+      </option>
+    </inspection_tool>
+  </profile>
+</component>

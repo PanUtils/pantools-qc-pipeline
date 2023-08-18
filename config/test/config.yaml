@@ -1,0 +1,11 @@
+
+## INPUT
+genomes: "resources/test/genomes/"
+annotations: "resources/test/annotations/"
+
+## OUTPUT
+genomes_filtered: ""
+
+## PARAMETERS
+min_len: 10
+orf_size: 30
