@@ -8,7 +8,7 @@ rule seqkit_seq:
     input:
         f"{genomes}/{{genome}}.fasta"
     output:
-        temp(f"{filtered_genomes}/{{genome}}.filtered.fasta")
+        f"{filtered_genomes}/{{genome}}.filtered.fasta"
     params:
         m = config['min_len']
     log:
@@ -22,9 +22,9 @@ rule agat_sp_keep_longest_isoform:
     input:
         f"{annotations}/{{annotation}}.gff"
     output:
-        temp(f"{filtered_annotations}/{{annotation}}.longest_isoform.gff")
+        temp(f"{filtered_annotations}/{{annotation}}_longest_isoform.gff")
     log:
-        f"{filtered_annotations}/logs/{{annotation}}.longest_isoform.agat.log"
+        f"{filtered_annotations}/logs/keep_longest_isoform/{{annotation}}_longest_isoform.agat.log"
     conda:
         "../envs/agat.yaml"
     shell:
@@ -35,14 +35,21 @@ rule agat_sp_keep_longest_isoform:
 
 rule agat_sp_filter_by_orf_size:
     input:
-        f"{filtered_annotations}/{{annotation}}.longest_isoform.gff"
+        f"{filtered_annotations}/{{annotation}}_longest_isoform.gff"
     output:
-        f"{filtered_annotations}/{{annotation}}.filtered.gff"
-    params:
-        orf_size = config['orf_size']
+        temp(f"{filtered_annotations}/{{annotation}}_sup={{orf_size}}.gff"),
+        temp(f"{filtered_annotations}/{{annotation}}_NOT_sup={{orf_size}}.gff")
     log:
-        f"{filtered_annotations}/logs/{{annotation}}.orf_size.agat.log"
+        f"{filtered_annotations}/logs/filter_by_orf_size/{{annotation}}_sup={{orf_size}}.agat.log"
     conda:
         "../envs/agat.yaml"
     script:
         "../scripts/filter_by_orf_size.sh"
+
+rule filter_annotation:
+    input:
+        "{}/{{annotation}}_sup={}.gff".format(filtered_annotations, config["orf_size"])
+    output:
+        f"{filtered_annotations}/{{annotation}}.filtered.gff"
+    shell:
+        "mv {input} {output}"

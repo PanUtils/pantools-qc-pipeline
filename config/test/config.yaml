@@ -1,10 +1,11 @@
 
 ## INPUT
-genomes: "resources/test/genomes/"
-annotations: "resources/test/annotations/"
+genomes: "resources/test/genomes"
+annotations: "resources/test/annotations"
 
 ## OUTPUT
-genomes_filtered: ""
+genomes_filtered: "results/genomes_filtered"
+annotations_filtered: "results/annotations_filtered"
 
 ## PARAMETERS
 min_len: 10
