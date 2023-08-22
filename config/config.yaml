@@ -1,0 +1,17 @@
+
+## INPUT
+genomes: resources/test_data/genomes
+annotations: resources/test_data/annotations
+
+## DATABASES
+eggnog_data: results/eggnog_data
+
+## OUTPUT
+filtered_genomes: results/genomes_filtered
+filtered_annotations: results/annotations_filtered
+proteins: results/proteomes
+functions: results/functions
+
+## PARAMETERS
+min_len: 100
+orf_size: 30
