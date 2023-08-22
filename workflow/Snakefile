@@ -1,6 +1,7 @@
 configfile: 'config/config.yaml'
 
 include: 'rules/common.smk'
+include: 'rules/sequences.smk'
 include: 'rules/annotations.smk'
 include: 'rules/functions.smk'
 include: 'rules/statistics.smk'
@@ -11,7 +12,7 @@ rule all:
         expand(f"{config['filtered_annotations']}/{{annotation}}.filtered.gff", annotation=data['annotation_name']),
         expand(f"{config['proteins']}/{{genome}}.pep.fa", genome=data['genome_name']),
         #expand(f"{config['functions_eggnog']}/{{genome}}.emapper.annotations", genome=data['genome_name']),
-        expand(f"{config['functions']}/{{genome}}.interproscan.gff3", genome=data['genome_name']),
+        expand(f"{config['functions_interproscan']}/{{genome}}.interproscan.gff3", genome=data['genome_name']),
         f"{config['statistics']}/genome_contents_raw.tsv",
         f"{config['statistics']}/genome_contents_filtered.tsv",
         f"{config['statistics']}/protein_contents.tsv",
