@@ -3,10 +3,19 @@ configfile: 'config/config.yaml'
 include: 'rules/common.smk'
 include: 'rules/filter_data.smk'
 include: 'rules/extract_data.smk'
+include: 'rules/statistics.smk'
 
 rule all:
     input:
         expand(f"{config['filtered_genomes']}/{{genome}}.filtered.fasta", genome=data['genome_name']),
         expand(f"{config['filtered_annotations']}/{{annotation}}.filtered.gff", annotation=data['annotation_name']),
         expand(f"{config['proteins']}/{{genome}}.pep.fa", genome=data['genome_name']),
-        #expand(f"{config['functions']}/{{genome}}.eggnog.gff", genome=data['genome_name'])
+        #expand(f"{config['functions']}/{{genome}}.eggnog.gff", genome=data['genome_name']),
+        f"{config['statistics']}/genome_contents_raw.tsv",
+        f"{config['statistics']}/genome_contents_filtered.tsv",
+        f"{config['statistics']}/protein_contents.tsv",
+        f"{config['statistics']}/annotation_contents_raw.tsv",
+        f"{config['statistics']}/annotation_contents_filtered.tsv",
+        f"{config['statistics']}/annotation_statistics.tsv",
+        ".snakemake/done/download_interproscan_data.done",
+        #".snakemake/done/download_eggnog_data.done"
