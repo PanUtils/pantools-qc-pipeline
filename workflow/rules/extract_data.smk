@@ -28,7 +28,7 @@ rule download_eggnog_data:
 rule eggnog_mapper:
     input:
         ".snakemake/done/download_eggnog_data.done",
-        proteins = f"{config['proteins']}/{{genome_name}}.pep.fa",
+        proteins = f"{config['proteins']}/{{genome_name}}.pep.fa"
     output:
         function = f"{config['functions']}/{{genome_name}}.eggnog.gff"
     threads:
@@ -50,8 +50,8 @@ rule download_interproscan_data:
     shell:
         """
         wget http://ftp.ebi.ac.uk/pub/software/unix/iprscan/5/5.59-91.0/interproscan-5.59-91.0-64-bit.tar.gz.md5
-        md5sum -c interproscan-5.59-91.0-64-bit.tar.gz.md5
         wget http://ftp.ebi.ac.uk/pub/software/unix/iprscan/5/5.59-91.0/interproscan-5.59-91.0-64-bit.tar.gz
+        md5sum -c interproscan-5.59-91.0-64-bit.tar.gz.md5
         tar xvzf interproscan-5.59-91.0-64-bit.tar.gz
         rm -rf $CONDA_PREFIX/share/InterProScan/data/
         mv interproscan-5.59-91.0/data $CONDA_PREFIX/share/InterProScan/
