@@ -1,6 +1,9 @@
 import os
 
 rule seqkit_seq:
+    """
+    Filter sequences by length provided in the config using seqkit_seq.
+    """
     input:
         f"{config['genomes']}/{{genome_name}}.fasta"
     output:
@@ -15,6 +18,10 @@ rule seqkit_seq:
         "seqkit seq -g -m {params.m} -o {output} {input} > {log}"
 
 rule filter_genome:
+    """
+    Compare the output of the filtered genome file with the raw input.
+    If the two files are identical, the filtered file is replaced with a symbolic link.
+    """
     input:
         raw_genome = "{full_path}/{{genome_name}}.fasta".format(
             full_path=os.path.abspath(config['genomes'])

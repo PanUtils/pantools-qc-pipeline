@@ -1,6 +1,10 @@
 import os
 
 rule agat_sq_filter_feature_from_fasta:
+    """
+    Compare a fasta and gff file using AGAT.
+    Cut all features from the gff file that do not match a fasta sequence. 
+    """
     input:
         annotation = f"{config['annotations']}/{{annotation_name}}.gff",
         genome = lambda wildcards: "{filtered_genomes}/{genome_name}.filtered.fasta".format(
@@ -22,6 +26,9 @@ rule agat_sq_filter_feature_from_fasta:
 
 
 rule agat_sp_keep_longest_isoform:
+    """
+    Only keep isoforms with the longest CDS using AGAT.
+    """
     input:
         f"{config['filtered_annotations']}/{{annotation_name}}_features_from_fasta.gff"
     output:
@@ -32,11 +39,14 @@ rule agat_sp_keep_longest_isoform:
         "../envs/agat.yaml"
     shell:
         """
-        agat_sp_keep_longest_isoform.pl --gff {input} --output {output} > /dev/null
+        agat_sp_keep_longest_isoform --gff {input} --output {output} > /dev/null
         mv {wildcards.annotation_name}_features_from_fasta.agat.log {log}
         """
 
 rule agat_sp_filter_by_orf_size:
+    """
+    Filter features from gff using AGAT with an ORF smaller than the threshold set in the config.
+    """
     input:
         f"{config['filtered_annotations']}/{{annotation_name}}_longest_isoform.gff"
     output:
@@ -50,6 +60,10 @@ rule agat_sp_filter_by_orf_size:
         "../scripts/filter_by_orf_size.sh"
 
 rule filter_annotation:
+    """
+    Compare the output of the latest annotation filtering step with the raw input.
+    If the two files are identical, the filtered file is replaced with a symbolic link.
+    """
     input:
         raw_annotation = "{full_path}/{{annotation_name}}.gff".format(
             full_path=os.path.abspath(config['annotations'])
@@ -68,6 +82,10 @@ rule filter_annotation:
         """
 
 rule agat_sp_extract_sequences:
+    """
+    Create a fasta file with protein sequences. 
+    Sequences are from the genome with CDS features in the gff file using AGAT. 
+    """
     input:
         genome = f"{config['filtered_genomes']}/{{genome_name}}.filtered.fasta",
         annotation = lambda wildcards: "{filtered_annotations}/{annotation_name}.filtered.gff".format(

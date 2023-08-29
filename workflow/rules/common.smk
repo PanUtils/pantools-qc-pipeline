@@ -10,5 +10,7 @@ except FileNotFoundError:
     data = pd.DataFrame()
     data['genome'] = [x for x in sorted(glob.glob("{genomes}/*.fasta".format(genomes=config["genomes"])))]
     data['annotation'] = [x for x in sorted(glob.glob("{annotations}/*.gff".format(annotations=config["annotations"])))]
+
+# get the file name from the given path for naming newly created files.
 data['genome_name'] = [Path(x).stem for x in data['genome']]
 data['annotation_name'] = [Path(x).stem for x in data['annotation']]

@@ -1,4 +1,7 @@
 rule download_eggnog_data:
+    """
+    Download eggnog databases into the conda environment to map against.
+    """
     output:
         touch(".snakemake/done/download_eggnog_data.done")
     conda:
@@ -10,6 +13,9 @@ rule download_eggnog_data:
         """
 
 rule eggnog_mapper:
+    """
+    Create functional annotations using eggNOG-mapper.
+    """
     input:
         ".snakemake/done/download_eggnog_data.done",
         proteins = f"{config['proteins']}/{{genome_name}}.pep.fa"
@@ -27,6 +33,9 @@ rule eggnog_mapper:
         """
 
 rule download_interproscan_data:
+    """
+    Download the interproscan database into the conda environment to scan against.
+    """
     output:
         touch(".snakemake/done/download_interproscan_data.done")
     conda:
@@ -42,6 +51,9 @@ rule download_interproscan_data:
         """
 
 rule interproscan:
+    """
+    Create functional annotations using InterProScan.
+    """
     input:
         ".snakemake/done/download_interproscan_data.done",
         proteins = f"{config['proteins']}/{{genome_name}}.pep.fa"
