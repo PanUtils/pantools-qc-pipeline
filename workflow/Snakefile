@@ -6,16 +6,21 @@ include: 'rules/annotations.smk'
 include: 'rules/functions.smk'
 include: 'rules/statistics.smk'
 
-rule all:
+rule filter:
     input:
         expand(f"{config['filtered_genomes']}/{{genome}}.filtered.fasta", genome=data['genome_name']),
         expand(f"{config['filtered_annotations']}/{{annotation}}.filtered.gff", annotation=data['annotation_name']),
-        expand(f"{config['proteins']}/{{genome}}.pep.fa", genome=data['genome_name']),
-        #expand(f"{config['functions_eggnog']}/{{genome}}.emapper.annotations", genome=data['genome_name']),
-        expand(f"{config['functions_interproscan']}/{{genome}}.interproscan.gff3", genome=data['genome_name']),
         f"{config['statistics']}/genome_contents_raw.tsv",
         f"{config['statistics']}/genome_contents_filtered.tsv",
-        f"{config['statistics']}/protein_contents.tsv",
         f"{config['statistics']}/annotation_contents_raw.tsv",
         f"{config['statistics']}/annotation_contents_filtered.tsv",
         f"{config['statistics']}/annotation_statistics.tsv"
+
+rule proteins:
+    input:
+        expand(f"{config['proteins']}/{{genome}}.pep.fa", genome=data['genome_name']),
+        f"{config['statistics']}/protein_contents.tsv"
+
+rule functions:
+    input:
+        expand(f"{config['functions_interproscan']}/{{genome}}.interproscan.gff3", genome=data['genome_name']),
