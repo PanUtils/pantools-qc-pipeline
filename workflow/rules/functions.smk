@@ -48,6 +48,7 @@ rule download_interproscan_data:
         tar xvzf interproscan-5.59-91.0-64-bit.tar.gz
         rm -rf $CONDA_PREFIX/share/InterProScan/data/
         mv interproscan-5.59-91.0/data $CONDA_PREFIX/share/InterProScan/
+        rm -rf interproscan-5.59-91.0*
         """
 
 rule interproscan:
