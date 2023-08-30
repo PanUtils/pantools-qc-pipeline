@@ -10,6 +10,7 @@ proteins: results/proteins
 functions_interproscan: results/functions_interproscan
 functions_eggnog: results/functions_eggnog
 statistics: results/statistics
+metadata: results/metadata
 
 ## PARAMETERS
 min_len: 1000

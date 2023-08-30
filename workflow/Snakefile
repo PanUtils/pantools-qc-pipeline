@@ -5,6 +5,7 @@ include: 'rules/sequences.smk'
 include: 'rules/annotations.smk'
 include: 'rules/functions.smk'
 include: 'rules/statistics.smk'
+include: 'rules/locations.smk'
 
 rule filter:
     input:
@@ -14,12 +15,15 @@ rule filter:
         f"{config['statistics']}/genome_contents_filtered.tsv",
         f"{config['statistics']}/annotation_contents_raw.tsv",
         f"{config['statistics']}/annotation_contents_filtered.tsv",
-        f"{config['statistics']}/annotation_statistics.tsv"
+        f"{config['statistics']}/annotation_statistics.tsv",
+        f"{config['metadata']}/genome_locations.txt",
+        f"{config['metadata']}/annotation_locations.txt"
 
 rule proteins:
     input:
         expand(f"{config['proteins']}/{{genome}}.pep.fa", genome=data['genome_name']),
-        f"{config['statistics']}/protein_contents.tsv"
+        f"{config['statistics']}/protein_contents.tsv",
+        f"{config['metadata']}/protein_locations.txt"
 
 rule functions:
     input:
