@@ -37,7 +37,7 @@ rule interproscan_setup:
     Download the interproscan database into the conda environment to scan against.
     """
     output:
-        touch(".snakemake/.done/download_interproscan_data.done")
+        touch(".snakemake/metadata/interproscan_setup.done")
     conda:
         "../envs/interproscan.yaml"
     shell:
@@ -51,14 +51,14 @@ rule interproscan:
     Create functional annotations using InterProScan.
     """
     input:
-        ".snakemake/.done/interproscan_setup.done",
+        ".snakemake/metadata/interproscan_setup.done",
         proteins = f"{config['proteins']}/{{genome_name}}.pep.fa"
     output:
         f"{config['functions_interproscan']}/{{genome_name}}.interproscan.gff3"
     params:
         appl = "TIGRFAM,SUPERFAMILY,PANTHER,Gene3D,Coils,Pfam,MobiDBLite"
     threads:
-        workflow.cores * 0.75
+        workflow.cores
     conda:
         "../envs/interproscan.yaml"
     log:
