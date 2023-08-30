@@ -32,23 +32,18 @@ rule eggnog_mapper:
         emapper.py -i {input.proteins} -o {wildcards.genome_name} --cpu {threads} > {log}
         """
 
-rule download_interproscan_data:
+rule interproscan_setup:
     """
     Download the interproscan database into the conda environment to scan against.
     """
     output:
-        touch(".snakemake/done/download_interproscan_data.done")
+        touch(".snakemake/.done/download_interproscan_data.done")
     conda:
         "../envs/interproscan.yaml"
     shell:
         """
-        wget http://ftp.ebi.ac.uk/pub/software/unix/iprscan/5/5.59-91.0/interproscan-5.59-91.0-64-bit.tar.gz.md5
-        wget http://ftp.ebi.ac.uk/pub/software/unix/iprscan/5/5.59-91.0/interproscan-5.59-91.0-64-bit.tar.gz
-        md5sum -c interproscan-5.59-91.0-64-bit.tar.gz.md5
-        tar xvzf interproscan-5.59-91.0-64-bit.tar.gz
-        rm -rf $CONDA_PREFIX/share/InterProScan/data/
-        mv interproscan-5.59-91.0/data $CONDA_PREFIX/share/InterProScan/
-        rm -rf interproscan-5.59-91.0*
+        cd $CONDA_PREFIX/share/InterProScan/
+        python3 setup.py -f interproscan.properties
         """
 
 rule interproscan:
@@ -56,7 +51,7 @@ rule interproscan:
     Create functional annotations using InterProScan.
     """
     input:
-        ".snakemake/done/download_interproscan_data.done",
+        ".snakemake/.done/interproscan_setup.done",
         proteins = f"{config['proteins']}/{{genome_name}}.pep.fa"
     output:
         f"{config['functions_interproscan']}/{{genome_name}}.interproscan.gff3"
