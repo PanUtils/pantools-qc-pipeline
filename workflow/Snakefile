@@ -23,4 +23,4 @@ rule proteins:
 
 rule functions:
     input:
-        expand(f"{config['functions_interproscan']}/{{genome}}.interproscan.gff3", genome=data['genome_name']),
+        expand(f"{config['functions_interproscan']}/{{genome}}.interproscan.gff3", genome=data['genome_name'])
