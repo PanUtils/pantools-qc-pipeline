@@ -39,7 +39,7 @@ rule agat_sp_keep_longest_isoform:
         "../envs/agat.yaml"
     shell:
         """
-        agat_sp_keep_longest_isoform --gff {input} --output {output} > /dev/null
+        agat_sp_keep_longest_isoform.pl --gff {input} --output {output} > /dev/null
         mv {wildcards.annotation_name}_features_from_fasta.agat.log {log}
         """
 
