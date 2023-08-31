@@ -87,19 +87,19 @@ rule agat_sp_extract_sequences:
     Sequences are from the genome with CDS features in the gff file using AGAT. 
     """
     input:
-        genome = f"{config['filtered_genomes']}/{{genome_name}}.filtered.fasta",
-        annotation = lambda wildcards: "{filtered_annotations}/{annotation_name}.filtered.gff".format(
-            filtered_annotations=config['filtered_annotations'],
-            annotation_name=data.loc[data.genome_name == wildcards.genome_name, 'annotation_name'].item())
+        annotation = f"{config['filtered_annotations']}/{{annotation_name}}.filtered.gff",
+        genome = lambda wildcards: "{filtered_genomes}/{genome_name}.filtered.fasta".format(
+            filtered_genomes=config['filtered_annotations'],
+            genome_name=data.loc[data.annotation_name == wildcards.annotation_name, 'genome_name'].item())
     output:
-        f"{config['proteins']}/{{genome_name}}.pep.fa"
+        f"{config['proteins']}/{{annotation_name}}.pep.fa"
     log:
-        f"{config['proteins']}/logs/{{genome_name}}.agat.log"
+        f"{config['proteins']}/logs/{{annotation_name}}.agat.log"
     conda:
         "../envs/agat.yaml"
     shell:
         """
         agat_sp_extract_sequences.pl -f {input.genome} -g {input.annotation} -p --cis --cfs -o {output} > /dev/null
         rm {input.genome}.index
-        mv {wildcards.genome_name}.filtered.agat.log > {log}
+        mv {wildcards.annotation_name}.filtered.agat.log > {log}
         """

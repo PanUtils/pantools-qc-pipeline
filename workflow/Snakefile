@@ -21,10 +21,10 @@ rule filter:
 
 rule proteins:
     input:
-        expand(f"{config['proteins']}/{{genome}}.pep.fa", genome=data['genome_name']),
+        expand(f"{config['proteins']}/{{annotation}}.pep.fa", annotation=data['annotation_name']),
         f"{config['statistics']}/protein_contents.tsv",
         f"{config['metadata']}/protein_locations.txt"
 
 rule functions:
     input:
-        expand(f"{config['functions_interproscan']}/{{genome}}.interproscan.gff3", genome=data['genome_name'])
+        expand(f"{config['functions_interproscan']}/{{annotation}}.interproscan.gff3", annotation=data['genome_name'])
