@@ -4,6 +4,7 @@ genomes: resources/test_data/genomes
 annotations: resources/test_data/annotations
 
 ## OUTPUT
+scratch:
 filtered_genomes: results/genomes_filtered
 filtered_annotations: results/annotations_filtered
 proteins: results/proteins

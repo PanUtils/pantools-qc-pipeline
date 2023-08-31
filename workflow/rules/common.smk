@@ -1,6 +1,13 @@
 import glob
+import tempfile
 from pathlib import Path
 import pandas as pd
+
+# set scratch directory
+if config['scratch']:
+    scratch = config['scratch']
+else:
+    scratch = tempfile.gettempdir()
 
 # read tsv config file matching genome and annotation file locations
 try:

@@ -81,10 +81,10 @@ rule filter_annotation:
             || mv {input.filtered_annotation} {output}
         """
 
-rule agat_sp_extract_sequences:
+rule agat_sp_extract_sequences_filtered:
     """
-    Create a fasta file with protein sequences. 
-    Sequences are from the genome with CDS features in the gff file using AGAT. 
+    Create a fasta file with protein sequences.
+    Sequences are from the genome with CDS features in the gff file using AGAT.
     """
     input:
         annotation = f"{config['filtered_annotations']}/{{annotation_name}}.filtered.gff",
@@ -93,9 +93,9 @@ rule agat_sp_extract_sequences:
             genome_name=data.loc[data.annotation_name == wildcards.annotation_name, 'genome_name'].item()
         )
     output:
-        f"{config['proteins']}/{{annotation_name}}.pep.fa"
+        f"{config['proteins']}/{{annotation_name}}.filtered.pep.fa"
     log:
-        f"{config['proteins']}/logs/{{annotation_name}}.agat.log"
+        f"{config['proteins']}/logs/{{annotation_name}}.filtered.agat.log"
     conda:
         "../envs/agat.yaml"
     shell:
@@ -103,4 +103,26 @@ rule agat_sp_extract_sequences:
         agat_sp_extract_sequences.pl -f {input.genome} -g {input.annotation} -p --cis --cfs -o {output} > /dev/null
         rm {input.genome}.index
         mv {wildcards.annotation_name}.filtered.agat.log {log}
+        """
+
+rule agat_sp_extract_sequences_raw:
+    """
+    Create a fasta file with protein sequences from raw data.
+    Sequences are from the genome with CDS features in the gff file using AGAT.
+    """
+    input:
+        annotation = f"{config['annotations']}/{{annotation_name}}.gff",
+        genome = lambda wildcards: "{genomes}/{genome_name}.fasta".format(
+            genomes=config['genomes'],
+            genome_name=data.loc[data.annotation_name == wildcards.annotation_name, 'genome_name'].item()
+        )
+    output:
+        temp(f"{scratch}/{{annotation_name}}.raw.pep.fa")
+    conda:
+        "../envs/agat.yaml"
+    shell:
+        """
+        agat_sp_extract_sequences.pl -f {input.genome} -g {input.annotation} -p --cis --cfs -o {output} > /dev/null
+        rm {input.genome}.index
+        rm {wildcards.annotation_name}.agat.log
         """

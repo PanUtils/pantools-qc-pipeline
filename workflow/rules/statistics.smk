@@ -18,13 +18,23 @@ rule genome_contents_filtered:
     script:
         "../scripts/fasta_contents.py"
 
-rule protein_contents:
+rule protein_contents_raw:
     input:
-        expand(f"{config['proteins']}/{{annotation_name}}.pep.fa",
+        expand(f"{scratch}/{{annotation_name}}.raw.pep.fa",
             annotation_name=data.annotation_name
         )
     output:
-        f"{config['statistics']}/protein_contents.tsv"
+        f"{config['statistics']}/protein_contents_raw.tsv"
+    script:
+        "../scripts/fasta_contents.py"
+
+rule protein_contents_filtered:
+    input:
+        expand(f"{config['proteins']}/{{annotation_name}}.filtered.pep.fa",
+            annotation_name=data.annotation_name
+        )
+    output:
+        f"{config['statistics']}/protein_contents_filtered.tsv"
     script:
         "../scripts/fasta_contents.py"
 

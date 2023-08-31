@@ -38,5 +38,6 @@ rule interproscan:
             --iprlookup \
             -i {input.proteins} \
             -o {output} \
-            --cpu {threads} > {log}
+            --cpu {threads} \
+            -T {scratch}/interproscan > {log}
         """
