@@ -20,7 +20,7 @@ rule annotation_locations:
 
 rule protein_locations:
     input:
-        files = expand(f"{config['proteins']}/{{genome_name}}.pep.fa",
+        files = expand(f"{config['proteins']}/{{genome_name}}.filtered.pep.fa",
             genome_name=data.genome_name
         )
     output:

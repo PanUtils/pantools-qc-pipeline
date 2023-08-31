@@ -7,6 +7,29 @@ include: 'rules/functions.smk'
 include: 'rules/statistics.smk'
 include: 'rules/locations.smk'
 
+rule all:
+    input:
+        f"{config['statistics']}/genome_contents_filtered.tsv",
+        f"{config['statistics']}/annotation_contents_filtered.tsv",
+        f"{config['statistics']}/annotation_statistics.tsv",
+        f"{config['metadata']}/genome_locations.txt",
+        f"{config['metadata']}/annotation_locations.txt",
+        f"{config['statistics']}/genome_contents_raw.tsv",
+        f"{config['statistics']}/annotation_contents_raw.tsv",
+        f"{config['statistics']}/protein_contents_raw.tsv",
+        f"{config['statistics']}/protein_contents_filtered.tsv",
+        f"{config['metadata']}/protein_locations.txt",
+        expand(f"{config['functions']}/{{annotation_name}}.interproscan.gff3",
+            annotation_name=data.annotation_name
+        )
+
+rule raw_statistics:
+    input:
+        f"{config['statistics']}/genome_contents_raw.tsv",
+        f"{config['statistics']}/annotation_contents_raw.tsv",
+        f"{config['statistics']}/protein_contents_raw.tsv"
+
+
 rule filter:
     input:
         expand(f"{config['filtered_genomes']}/{{genome_name}}.filtered.fasta",
@@ -21,15 +44,9 @@ rule filter:
         f"{config['metadata']}/genome_locations.txt",
         f"{config['metadata']}/annotation_locations.txt"
 
-rule raw_statistics:
-    input:
-        f"{config['statistics']}/genome_contents_raw.tsv",
-        f"{config['statistics']}/annotation_contents_raw.tsv",
-        f"{config['statistics']}/protein_contents_raw.tsv"
-
 rule proteins:
     input:
-        expand(f"{config['proteins']}/{{annotation_name}}.pep.fa",
+        expand(f"{config['proteins']}/{{annotation_name}}.filtered.pep.fa",
             annotation_name=data.annotation_name
         ),
         f"{config['statistics']}/protein_contents_filtered.tsv",

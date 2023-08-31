@@ -13,5 +13,12 @@ statistics: results/statistics
 metadata: results/metadata
 
 ## PARAMETERS
+
+# minimum sequence length for the genomic fasta
 min_len: 1000
+
+# minimum size of the CDS open reading frame
 orf_size: 30
+
+# comma separated list of InterProScan analyses
+applications: "TIGRFAM,SUPERFAMILY,PANTHER,Gene3D,Coils,Pfam,MobiDBLite"

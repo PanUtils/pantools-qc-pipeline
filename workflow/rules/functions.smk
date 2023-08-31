@@ -18,11 +18,11 @@ rule interproscan:
     """
     input:
         ".snakemake/metadata/interproscan_setup.done",
-        proteins = f"{config['proteins']}/{{annotation_name}}.pep.fa"
+        proteins = f"{config['proteins']}/{{annotation_name}}.filtered.pep.fa"
     output:
         f"{config['functions']}/{{annotation_name}}.interproscan.gff3"
     params:
-        appl = "TIGRFAM,SUPERFAMILY,PANTHER,Gene3D,Coils,Pfam,MobiDBLite"
+        appl = config['applications']
     threads:
         workflow.cores
     conda:
