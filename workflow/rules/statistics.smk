@@ -1,6 +1,6 @@
 rule genome_contents_raw:
     input:
-        expand(f"{config['genomes']}/{{genome_name}}.fasta",
+        expand(f"{config['genomes']}/{{genome_name}}.fna",
             genome_name=data.genome_name
         )
     output:
@@ -10,7 +10,7 @@ rule genome_contents_raw:
 
 rule genome_contents_filtered:
     input:
-        expand(f"{config['filtered_genomes']}/{{genome_name}}.filtered.fasta",
+        expand(f"{config['filtered_genomes']}/{{genome_name}}.filtered.fna",
             genome_name=data.genome_name
         )
     output:
@@ -20,7 +20,7 @@ rule genome_contents_filtered:
 
 rule protein_contents_raw:
     input:
-        expand(f"{scratch}/{{annotation_name}}.raw.pep.fa",
+        expand(f"{scratch}/{{annotation_name}}.raw.pep.faa",
             annotation_name=data.annotation_name
         )
     output:
@@ -30,7 +30,7 @@ rule protein_contents_raw:
 
 rule protein_contents_filtered:
     input:
-        expand(f"{config['proteins']}/{{annotation_name}}.filtered.pep.fa",
+        expand(f"{config['proteins']}/{{annotation_name}}.filtered.pep.faa",
             annotation_name=data.annotation_name
         )
     output:
@@ -40,7 +40,7 @@ rule protein_contents_filtered:
 
 rule annotation_contents_raw:
     input:
-        expand(f"{config['annotations']}/{{annotation_name}}.gff",
+        expand(f"{config['annotations']}/{{annotation_name}}.gff3",
             annotation_name=data.annotation_name
         )
     output:
@@ -50,7 +50,7 @@ rule annotation_contents_raw:
 
 rule annotation_contents_filtered:
     input:
-        expand(f"{config['filtered_annotations']}/{{annotation_name}}.filtered.gff",
+        expand(f"{config['filtered_annotations']}/{{annotation_name}}.filtered.gff3",
             annotation_name=data.annotation_name
         )
     output:
@@ -60,7 +60,7 @@ rule annotation_contents_filtered:
 
 rule agat_sp_statistics:
     input:
-        annotation = f"{config['filtered_annotations']}/{{annotation_name}}.filtered.gff",
+        annotation = f"{config['filtered_annotations']}/{{annotation_name}}.filtered.gff3",
         genome = lambda wildcards: "{filtered_genomes}/{genome_name}.filtered.fasta".format(
             filtered_genomes=config['filtered_genomes'],
             genome_name=data.loc[data.annotation_name == wildcards.annotation_name, 'genome_name'].item()
@@ -79,7 +79,7 @@ rule agat_sp_statistics:
 
 rule annotation_statistics:
     input:
-        expand(f"{config['statistics']}/agat_sp_statistics/{{annotation_name}}.filtered.txt",
+        expand(f"{config['statistics']}/agat_sp_statistics/{{annotation_name}}.filtered.txt3",
             annotation_name=data.annotation_name
         )
     output:

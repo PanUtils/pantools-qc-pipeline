@@ -32,10 +32,10 @@ rule raw_statistics:
 
 rule filter:
     input:
-        expand(f"{config['filtered_genomes']}/{{genome_name}}.filtered.fasta",
+        expand(f"{config['filtered_genomes']}/{{genome_name}}.filtered.fna",
             genome_name=data.genome_name
         ),
-        expand(f"{config['filtered_annotations']}/{{annotation_name}}.filtered.gff",
+        expand(f"{config['filtered_annotations']}/{{annotation_name}}.filtered.gff3",
             annotation_name=data.annotation_name
         ),
         f"{config['statistics']}/genome_contents_filtered.tsv",
@@ -46,7 +46,7 @@ rule filter:
 
 rule proteins:
     input:
-        expand(f"{config['proteins']}/{{annotation_name}}.filtered.pep.fa",
+        expand(f"{config['proteins']}/{{annotation_name}}.filtered.pep.faa",
             annotation_name=data.annotation_name
         ),
         f"{config['statistics']}/protein_contents_filtered.tsv",

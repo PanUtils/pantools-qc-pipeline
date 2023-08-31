@@ -18,7 +18,7 @@ rule interproscan:
     """
     input:
         ".snakemake/metadata/interproscan_setup.done",
-        proteins = f"{config['proteins']}/{{annotation_name}}.filtered.pep.fa"
+        proteins = f"{config['proteins']}/{{annotation_name}}.filtered.pep.faa"
     output:
         f"{config['functions']}/{{annotation_name}}.interproscan.gff3"
     params:
