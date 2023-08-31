@@ -93,10 +93,13 @@ rule agat_sp_extract_sequences:
             annotation_name=data.loc[data.genome_name == wildcards.genome_name, 'annotation_name'].item())
     output:
         f"{config['proteins']}/{{genome_name}}.pep.fa"
+    log:
+        f"{config['proteins']}/logs/{{genome_name}}.agat.log"
     conda:
         "../envs/agat.yaml"
     shell:
         """
         agat_sp_extract_sequences.pl -f {input.genome} -g {input.annotation} -p --cis --cfs -o {output} > /dev/null
         rm {input.genome}.index
+        mv {wildcards.genome_name}.filtered.agat.log > {log}
         """
