@@ -112,7 +112,7 @@ rule agat_sp_extract_sequences_raw:
     """
     input:
         annotation = f"{config['annotations']}/{{annotation_name}}.gff3",
-        genome = lambda wildcards: "{genomes}/{genome_name}.fasta".format(
+        genome = lambda wildcards: "{genomes}/{genome_name}.fna".format(
             genomes=config['genomes'],
             genome_name=data.loc[data.annotation_name == wildcards.annotation_name, 'genome_name'].item()
         )
