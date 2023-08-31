@@ -1,7 +1,7 @@
 rule genome_contents_raw:
     input:
         expand(f"{config['genomes']}/{{genome_name}}.fasta",
-            genome_name=data['genome_name']
+            genome_name=data.genome_name
         )
     output:
         f"{config['statistics']}/genome_contents_raw.tsv"
@@ -11,7 +11,7 @@ rule genome_contents_raw:
 rule genome_contents_filtered:
     input:
         expand(f"{config['filtered_genomes']}/{{genome_name}}.filtered.fasta",
-            genome_name=data['genome_name']
+            genome_name=data.genome_name
         )
     output:
         f"{config['statistics']}/genome_contents_filtered.tsv"
@@ -20,8 +20,8 @@ rule genome_contents_filtered:
 
 rule protein_contents:
     input:
-        expand(f"{config['proteins']}/{{genome_name}}.pep.fa",
-            genome_name=data['genome_name']
+        expand(f"{config['proteins']}/{{annotation_name}}.pep.fa",
+            anotation_name=data.annotation_name
         )
     output:
         f"{config['statistics']}/protein_contents.tsv"
@@ -31,7 +31,7 @@ rule protein_contents:
 rule annotation_contents_raw:
     input:
         expand(f"{config['annotations']}/{{annotation_name}}.gff",
-            annotation_name=data['annotation_name']
+            annotation_name=data.annotation_name
         )
     output:
         f"{config['statistics']}/annotation_contents_raw.tsv"
@@ -41,7 +41,7 @@ rule annotation_contents_raw:
 rule annotation_contents_filtered:
     input:
         expand(f"{config['filtered_annotations']}/{{annotation_name}}.filtered.gff",
-            annotation_name=data['annotation_name']
+            annotation_name=data.annotation_name
         )
     output:
         f"{config['statistics']}/annotation_contents_filtered.tsv"
@@ -70,7 +70,7 @@ rule agat_sp_statistics:
 rule annotation_statistics:
     input:
         expand(f"{config['statistics']}/agat_sp_statistics/{{annotation_name}}.filtered.txt",
-            annotation_name=data['annotation_name']
+            annotation_name=data.annotation_name
         )
     output:
         f"{config['statistics']}/annotation_statistics.tsv"
