@@ -1,37 +1,3 @@
-rule download_eggnog_data:
-    """
-    Download eggnog databases into the conda environment to map against.
-    """
-    output:
-        touch(".snakemake/done/download_eggnog_data.done")
-    conda:
-        "../envs/eggnog_mapper.yaml"
-    shell:
-        """
-        mkdir -p $CONDA_PREFIX/lib/python3.7/site-packages/data
-        download_eggnog_data.py -y
-        """
-
-rule eggnog_mapper:
-    """
-    Create functional annotations using eggNOG-mapper.
-    """
-    input:
-        ".snakemake/done/download_eggnog_data.done",
-        proteins = f"{config['proteins']}/{{annotation_name}}.pep.fa"
-    output:
-        f"{config['functions_eggnog']}/{{annotation_name}}.emapper.annotations"
-    threads:
-        workflow.cores * 0.75
-    conda:
-        "../envs/eggnog_mapper.yaml"
-    log:
-        f"{config['functions_eggnog']}/logs/{{annotation_name}}.eggnog.log"
-    shell:
-        """
-        emapper.py -i {input.proteins} -o {wildcards.annotation_name} --cpu {threads} > {log}
-        """
-
 rule interproscan_setup:
     """
     Download the interproscan database into the conda environment to scan against.
@@ -54,7 +20,7 @@ rule interproscan:
         ".snakemake/metadata/interproscan_setup.done",
         proteins = f"{config['proteins']}/{{annotation_name}}.pep.fa"
     output:
-        f"{config['functions_interproscan']}/{{annotation_name}}.interproscan.gff3"
+        f"{config['functions']}/{{annotation_name}}.interproscan.gff3"
     params:
         appl = "TIGRFAM,SUPERFAMILY,PANTHER,Gene3D,Coils,Pfam,MobiDBLite"
     threads:
@@ -62,7 +28,7 @@ rule interproscan:
     conda:
         "../envs/interproscan.yaml"
     log:
-        f"{config['functions_interproscan']}/logs/{{annotation_name}}.interproscan.log"
+        f"{config['functions']}/logs/{{annotation_name}}.interproscan.log"
     shell:
         """
         interproscan.sh \

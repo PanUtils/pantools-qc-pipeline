@@ -33,6 +33,6 @@ rule proteins:
 
 rule functions:
     input:
-        expand(f"{config['functions_interproscan']}/{{annotation_name}}.interproscan.gff3",
+        expand(f"{config['functions']}/{{annotation_name}}.interproscan.gff3",
             annotation_name=data.annotation_name
         )
