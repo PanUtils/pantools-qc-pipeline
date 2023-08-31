@@ -21,7 +21,7 @@ rule genome_contents_filtered:
 rule protein_contents:
     input:
         expand(f"{config['proteins']}/{{annotation_name}}.pep.fa",
-            anotation_name=data.annotation_name
+            annotation_name=data.annotation_name
         )
     output:
         f"{config['statistics']}/protein_contents.tsv"
