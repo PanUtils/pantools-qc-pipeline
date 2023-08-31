@@ -9,7 +9,7 @@ Requirements: Snakemake, Mamba.
 ## Cloning this git
 For cloning this git, run:
 ```bash
-https://github.com/PanUtils/pantools-qc-pipeline
+git clone https://github.com/PanUtils/pantools-qc-pipeline
 cd pantools-qc-pipeline
 ```
 
@@ -40,7 +40,7 @@ Filtering parameters, output paths and scratch directory can also be altered.
 The pipeline can be run with
 
 ```bash
-snakemake --use-conda --conda-frontend='mamba' --cores <threads> [rule]
+snakemake --use-conda --conda-frontend 'mamba' --cores <threads> [rule]
 ```
 
 Where <threads> is the number of threads to run on, and the possible rules are discussed below.
