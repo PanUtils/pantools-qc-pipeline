@@ -10,7 +10,7 @@ rule genome_locations:
 
 rule annotation_locations:
     input:
-        expand(f"{config['filtered_annotations']}/{{annotation_name}}.filtered.gff3",
+        expand(f"{config['filtered_annotations']}/{{annotation_name}}.filtered.gff",
             annotation_name=data.annotation_name
         )
     output:

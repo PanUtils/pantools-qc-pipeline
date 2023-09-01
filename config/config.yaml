@@ -4,7 +4,7 @@
 # directory of genomic fasta sequences with .fna extension
 genomes: resources/test_data/genomes
 
-# directory of annotations with .gff3 extension
+# directory of annotations with .gff extension
 annotations: resources/test_data/annotations
 
 # table of matching genome and annotation files

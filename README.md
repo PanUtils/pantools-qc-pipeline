@@ -38,7 +38,7 @@ Filtering parameters, output paths and scratch directory can also be altered.
 
 ## Input data
 Two input directories are required. One with genomic fasta files and one with matching annotations.
-All fasta files must end in *.fna*, all annotations files in *.gff3*. 
+All fasta files must end in *.fna*, all annotations files in *.gff*. 
 If this is not the case, the genome and annotation file extensions can be altered using:
 
 ```bash
@@ -46,7 +46,7 @@ for file in <genomes>/*.fa*; do mv -- "$file" "${file%.fa*}.fna"; done
 ```
 
 ```bash
-for file in <annotations>/*.gff; do mv -- "$file" "${file%.gff}.gff3"; done
+for file in <annotations>/*.gff3; do mv -- "$file" "${file%.gff3}.gff"; done
 ```
 
 By default, the pipeline assumes the genome and annotation files match alphabetically. 
@@ -54,8 +54,8 @@ If this is not the case, a *tsv* file needs to be provided in the config
 with the file names or paths of the matching files. For example:
 ```tsv
 genome                  annotation
-genome1.fna             annotation1.gff3
-/path/to/genome2.fna    /path/to/second_annotation.gff3
+genome1.fna             annotation1.gff
+/path/to/genome2.fna    /path/to/second_annotation.gff
 ...                     ...
 ```
 

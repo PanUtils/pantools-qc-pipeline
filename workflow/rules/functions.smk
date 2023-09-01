@@ -20,7 +20,7 @@ rule interproscan:
         ".snakemake/metadata/interproscan_setup.done",
         proteins = f"{config['proteins']}/{{annotation_name}}.filtered.pep.faa"
     output:
-        f"{config['functions']}/{{annotation_name}}.interproscan.gff3"
+        f"{config['functions']}/{{annotation_name}}.interproscan.gff"
     params:
         appl = config['applications']
     threads:
@@ -32,7 +32,7 @@ rule interproscan:
     shell:
         """
         interproscan.sh \
-            -f gff3 \
+            -f gff \
             --appl {params.appl} \
             --goterms \
             --iprlookup \

@@ -11,7 +11,7 @@ if __name__ == "__main__":
     counts = {}
     files = ['']
 
-    # expecting files in GFF/GFF3 format
+    # expecting files in GFF/gff format
     for i, gffFile in enumerate(snakemake.input):
         files.append(os.path.basename(gffFile))
         for line in open(gffFile):
