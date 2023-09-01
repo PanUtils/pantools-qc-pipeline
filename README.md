@@ -67,7 +67,7 @@ snakemake --use-conda --conda-frontend 'mamba' --cores <threads> [rule]
 ```
 
 Where <threads> is the number of threads to run on, and the possible rules are discussed below.
-The full pipeline will run if no rule is provided.
+The pipeline will create everything except for the raw statistics if no rule is provided.
 
 ## Rules
 ### raw_statistics
