@@ -9,5 +9,4 @@ agat_sp_filter_by_ORF_size.pl \
   --test '>=' --gff "${snakemake_input}" \
   --output "$output" > /dev/null
 
-echo "$(basename "$output" .gff3).agat.log"
 mv "$(basename "$output" .gff3)_longest_isoform.agat.log" "${snakemake_log}"
