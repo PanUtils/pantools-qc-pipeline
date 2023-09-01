@@ -79,7 +79,7 @@ rule agat_sp_statistics:
 
 rule annotation_statistics:
     input:
-        expand(f"{config['statistics']}/agat_sp_statistics/{{annotation_name}}.filtered.gff3",
+        expand(f"{config['statistics']}/agat_sp_statistics/{{annotation_name}}.filtered.txt",
             annotation_name=data.annotation_name
         )
     output:
