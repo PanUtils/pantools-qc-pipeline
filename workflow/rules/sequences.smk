@@ -23,7 +23,7 @@ rule filter_genome:
     If the two files are identical, the filtered file is replaced with a symbolic link.
     """
     input:
-        raw_genome = "{full_path}/{{genome_name}}.fasta".format(
+        raw_genome = "{full_path}/{{genome_name}}.fna".format(
             full_path=os.path.abspath(config['genomes'])
         ),
         filtered_genome = f"{config['filtered_genomes']}/{{genome_name}}.seqkit.fna"
