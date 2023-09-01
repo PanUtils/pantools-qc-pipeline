@@ -16,9 +16,7 @@ rule all:
         f"{config['metadata']}/annotation_locations.txt",
         f"{config['statistics']}/protein_contents_filtered.tsv",
         f"{config['metadata']}/protein_locations.txt",
-        expand(f"{config['functions']}/{{annotation_name}}.interproscan.gff",
-            annotation_name=data.annotation_name
-        )
+        f"{config['metadata']}/function_locations.txt"
 
 rule raw_statistics:
     input:
@@ -29,12 +27,6 @@ rule raw_statistics:
 
 rule filter:
     input:
-        expand(f"{config['filtered_genomes']}/{{genome_name}}.filtered.fna",
-            genome_name=data.genome_name
-        ),
-        expand(f"{config['filtered_annotations']}/{{annotation_name}}.filtered.gff",
-            annotation_name=data.annotation_name
-        ),
         f"{config['statistics']}/genome_contents_filtered.tsv",
         f"{config['statistics']}/annotation_contents_filtered.tsv",
         f"{config['statistics']}/annotation_statistics.tsv",
@@ -43,15 +35,9 @@ rule filter:
 
 rule proteins:
     input:
-        expand(f"{config['proteins']}/{{annotation_name}}.filtered.pep.faa",
-            annotation_name=data.annotation_name
-        ),
         f"{config['statistics']}/protein_contents_filtered.tsv",
         f"{config['metadata']}/protein_locations.txt"
 
 rule functions:
     input:
-        expand(f"{config['functions']}/{{annotation_name}}.interproscan.gff",
-            annotation_name=data.annotation_name
-        ),
         f"{config['metadata']}/function_locations.txt"
