@@ -20,10 +20,20 @@ rule annotation_locations:
 
 rule protein_locations:
     input:
-        files = expand(f"{config['proteins']}/{{genome_name}}.filtered.pep.faa",
-            genome_name=data.genome_name
+        files = expand(f"{config['proteins']}/{{annotation_name}}.filtered.pep.faa",
+            annotation_name=data.annotation_name
         )
     output:
         f"{config['metadata']}/protein_locations.txt"
     shell:
         "realpath {input} > {output}"
+
+rule function_locations:
+    input:
+        expand(f"{config['functions']}/{{annotation_name}}.interproscan.gff",
+            annotation_name=data.annotation_name
+        )
+    output:
+        f"{config['metadata']}/function_locations.txt"
+    shell:
+        "realpath {input} | nl -w1 -s ' ' > {output}"

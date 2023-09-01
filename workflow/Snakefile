@@ -53,4 +53,5 @@ rule functions:
     input:
         expand(f"{config['functions']}/{{annotation_name}}.interproscan.gff",
             annotation_name=data.annotation_name
-        )
+        ),
+        f"{config['metadata']}/function_locations.txt"
