@@ -1,10 +1,19 @@
 
-## INPUT
+### PATHS ###
+
+# directory of genomic fasta sequences with .fna extension
 genomes: resources/test_data/genomes
+
+# directory of annotations with .gff3 extension
 annotations: resources/test_data/annotations
 
-## OUTPUT
+# table of matching genome and annotation files
+data_table:
+
+# custom scratch directory (default is system default)
 scratch:
+
+# output data directories
 filtered_genomes: results/genomes_filtered
 filtered_annotations: results/annotations_filtered
 proteins: results/proteins
@@ -12,7 +21,7 @@ functions: results/functions
 statistics: results/statistics
 metadata: results/metadata
 
-## PARAMETERS
+### PARAMETERS ###
 
 # minimum sequence length for the genomic fasta
 min_len: 1000

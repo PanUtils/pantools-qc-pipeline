@@ -50,7 +50,7 @@ for file in <annotations>/*.gff; do mv -- "$file" "${file%.gff}.gff3"; done
 ```
 
 By default, the pipeline assumes the genome and annotation files match alphabetically. 
-If this is not the case, a *data.tsv* file needs to be provided in the *config/* directory
+If this is not the case, a *tsv* file needs to be provided in the config
 with the file names or paths of the matching files. For example:
 ```tsv
 genome                  annotation

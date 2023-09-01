@@ -11,9 +11,9 @@ else:
 
 # read tsv config file matching genome and annotation file locations
 try:
-    data = pd.read_table("config/data.tsv")
+    data = pd.read_table(config['data_table'])
 except FileNotFoundError:
-    print("No data.tsv table found, assuming alphabetically matching sequences and annotations.")
+    print("No data table table found, assuming alphabetically matching sequences and annotations.")
     data = pd.DataFrame()
     data['genome'] = [x for x in sorted(glob.glob("{genomes}/*.fna".format(genomes=config["genomes"])))]
     data['annotation'] = [x for x in sorted(glob.glob("{annotations}/*.gff3".format(annotations=config["annotations"])))]
