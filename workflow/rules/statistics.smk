@@ -61,7 +61,7 @@ rule annotation_contents_filtered:
 rule agat_sp_statistics:
     input:
         annotation = f"{config['filtered_annotations']}/{{annotation_name}}.filtered.gff3",
-        genome = lambda wildcards: "{filtered_genomes}/{genome_name}.filtered.fasta".format(
+        genome = lambda wildcards: "{filtered_genomes}/{genome_name}.filtered.fna".format(
             filtered_genomes=config['filtered_genomes'],
             genome_name=data.loc[data.annotation_name == wildcards.annotation_name, 'genome_name'].item()
         )
