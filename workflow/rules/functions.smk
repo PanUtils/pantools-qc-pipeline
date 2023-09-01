@@ -32,7 +32,7 @@ rule interproscan:
     shell:
         """
         interproscan.sh \
-            -f gff \
+            -f gff3 \
             --appl {params.appl} \
             --goterms \
             --iprlookup \
