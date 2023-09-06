@@ -127,7 +127,7 @@ rule agat_sp_extract_sequences_raw:
             genome_name=data.loc[data.annotation_name == wildcards.annotation_name, 'genome_name'].item()
         )
     output:
-        temp(f"{scratch}/{{annotation_name}}.raw.pep.faa")
+        temp(f"{config['proteins']}/{{annotation_name}}.raw.pep.faa")
     conda:
         "../envs/agat.yaml"
     shell:
