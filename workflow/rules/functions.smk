@@ -24,7 +24,7 @@ rule interproscan:
     params:
         appl = config['applications']
     threads:
-        workflow.cores
+        min(workflow.cores / len(data.annotation), 1)
     conda:
         "../envs/interproscan.yaml"
     log:
