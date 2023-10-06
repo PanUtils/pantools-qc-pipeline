@@ -41,7 +41,7 @@ rule agat_sp_keep_longest_isoform:
         """
         agat_sp_keep_longest_isoform.pl --gff {input} --output {output} > /dev/null
         log="{wildcards.annotation_name}_features_from_fasta.agat.log"
-        [ if -f $log ] mv $log {log}
+        [ if -f "$log" ] mv "$log" {log}
         """
 
 rule agat_sp_filter_by_orf_size:
@@ -68,7 +68,7 @@ rule agat_sp_filter_by_orf_size:
           --output "$output" > /dev/null
         
         log="$(basename "$output" .gff)_longest_isoform.agat.log"
-        [ if -f $log ] mv $log {log}
+        [ if -f "$log" ] mv "$log" {log}
         """
 
 rule filter_annotation:
@@ -115,7 +115,7 @@ rule agat_sp_extract_sequences_filtered:
         agat_sp_extract_sequences.pl -f {input.genome} -g {input.annotation} -p --cis --cfs -o {output} > /dev/null
         rm -f {input.genome}.index
         log="{wildcards.annotation_name}.filtered.agat.log"
-        [ if -f $log ] mv $log {log}
+        [ if -f "$log" ] mv "$log" {log}
         """
 
 rule agat_sp_extract_sequences_raw:
