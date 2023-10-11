@@ -24,7 +24,6 @@ rule raw_statistics:
         f"{config['statistics']}/annotation_contents_raw.tsv",
         f"{config['statistics']}/protein_contents_raw.tsv"
 
-
 rule filter:
     input:
         f"{config['statistics']}/genome_contents_filtered.tsv",
