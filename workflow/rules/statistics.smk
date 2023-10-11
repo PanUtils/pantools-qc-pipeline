@@ -74,7 +74,8 @@ rule agat_sp_statistics:
     shell:
         """
         agat_sp_statistics.pl -i {input.annotation} -f {input.genome} --output {output} > /dev/null
-        mv {wildcards.annotation_name}.filtered.agat.log {log}
+        log="{wildcards.annotation_name}.filtered.agat.log"
+        [ ! -f "$log" ] || mv "$log"  {log}
         """
 
 rule annotation_statistics:
