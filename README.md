@@ -63,11 +63,13 @@ genome1.fna             annotation1.gff
 The pipeline can be run with
 
 ```bash
-snakemake --use-conda --conda-frontend 'mamba' --cores <threads> [rule]
+snakemake [rule] --use-conda --conda-frontend 'mamba' --cores <threads> [--configfile <config>]
 ```
 
-Where <threads> is the number of threads to run on, and the possible rules are discussed below.
-The pipeline will create everything except for the raw statistics if no rule is provided.
+Where <threads> is the number of threads to run on, and <config> a custom config file.
+If no config is provided, the pipeline will run on a small yeast test dataset.
+The possible rules are discussed below. The pipeline will create everything except for the raw 
+statistics if no rule is provided.
 
 ## Rules
 ### raw_statistics
