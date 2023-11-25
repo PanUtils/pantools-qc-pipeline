@@ -106,4 +106,4 @@ if __name__ == "__main__":
         writer.writerow(["N75 sequence index:"] + [result[fn]['N75idx'] for fn in snakemake.input])
         writer.writerow(["N75 sequence length:"] + [result[fn]['N75len'] for fn in snakemake.input])
         writer.writerow(["N95 sequence index:"] + [result[fn]['N95idx'] for fn in snakemake.input])
-        writer.writerow(["'N95 sequence length:"] + [result[fn]['N95len'] for fn in snakemake.input])
+        writer.writerow(["N95 sequence length:"] + [result[fn]['N95len'] for fn in snakemake.input])
