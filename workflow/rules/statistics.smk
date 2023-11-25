@@ -20,7 +20,7 @@ rule genome_contents_filtered:
 
 rule protein_contents_raw:
     input:
-        expand(f"{scratch}/{{annotation_name}}.raw.pep.faa",
+        expand(f"{config['proteins']}/{{annotation_name}}.raw.pep.faa",
             annotation_name=data.annotation_name
         )
     output:
