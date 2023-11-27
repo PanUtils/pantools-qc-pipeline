@@ -30,4 +30,4 @@ min_len: 1000
 orf_size: 30
 
 # comma separated list of InterProScan analyses
-applications: "TIGRFAM,SUPERFAMILY,PANTHER,Gene3D,Coils,Pfam,MobiDBLite"
+applications: "TIGRFAM,Pfam"
