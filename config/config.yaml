@@ -26,6 +26,9 @@ metadata: results/metadata
 # minimum sequence length for the genomic fasta
 min_len: 1000
 
+# only keep features of longest isoform
+longest_isoform: True
+
 # minimum size of the CDS open reading frame
 orf_size: 30
 

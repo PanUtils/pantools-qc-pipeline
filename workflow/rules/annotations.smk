@@ -49,7 +49,8 @@ rule agat_sp_filter_by_orf_size:
     Filter features from gff using AGAT with an ORF smaller than the threshold set in the config.
     """
     input:
-        f"{config['filtered_annotations']}/{{annotation_name}}_longest_isoform.gff"
+        f"{config['filtered_annotations']}/{{annotation_name}}_longest_isoform.gff" if config['longest_isoform'] else \
+            f"{config['filtered_annotations']}/{{annotation_name}}_features_from_fasta.gff"
     output:
         filtered=temp(f"{config['filtered_annotations']}/{{annotation_name}}_sup={{orf_size}}.gff"),
         discarded=temp(f"{config['filtered_annotations']}/{{annotation_name}}_NOT_sup={{orf_size}}.gff")
