@@ -21,7 +21,7 @@ rule agat_sq_filter_feature_from_fasta:
             --gff {input.annotation} \
             --fasta {input.genome} \
             --output {output} > /dev/null
-        rm {input.genome}.index
+        rm -f {input.genome}.index
         """
 
 
