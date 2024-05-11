@@ -27,7 +27,7 @@ metadata: results/metadata
 min_len: 1000
 
 # only keep features of longest isoform
-longest_isoform: True
+longest_isoform: False
 
 # minimum size of the CDS open reading frame
 orf_size: 30
