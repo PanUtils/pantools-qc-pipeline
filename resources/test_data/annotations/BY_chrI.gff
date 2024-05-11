@@ -1,5 +1,4 @@
 ##gff-version 3
-# /lustre/BIF/nobackup/worku005/bin/miniconda3/envs/bio/bin/liftoff -p 40 -copies -polish -g S288C_chrI.gff -o BY_chrI.tmp.gff BY_chrI.fna S288C_chrI.fna
 # Liftoff v1.6.2
 tig00000024	Liftoff	gene	2185	2547	.	-	.	ID=BY1;Dbxref=GeneID:851229;Name=PAU8;copy_num_ID=gene-YAL068C_0;coverage=1.0;end_range=2169,.;extra_copy_number=0;gbkey=Gene;gene=PAU8;gene_biotype=protein_coding;locus_tag=YAL068C;partial=true;sequence_ID=1.0;start_range=.,1807;valid_ORFs=1
 tig00000024	Liftoff	mRNA	2185	2547	.	-	.	ID=BY1.1;Parent=BY1;Dbxref=GeneID:851229,Genbank:NM_001180043.1;Name=NM_001180043.1;end_range=2169,.;extra_copy_number=0;gbkey=mRNA;gene=PAU8;locus_tag=YAL068C;matches_ref_protein=True;partial=true;product=seripauperin PAU8;start_range=.,1807;transcript_id=NM_001180043.1;valid_ORF=True
