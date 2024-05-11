@@ -18,12 +18,11 @@ rule filter_gff_fields:
         temp(f"{config['annotations']}/{{annotation_name}}.filtered.gff")
     shell:
         """
-        iconv -f utf-8 -t utf-8 -c {input.annotation} > {output}
-        sed -i 's/;$//g' {output}
-        sed -i 's/=\([^;,]*\),[^;]*/=\1/g' {output}
-        sed -i 's/;[^=;]*;/;/g' {output}
-        sed -i 's/;[^=;]*$//g' {output}
-        awk -i inplace -F'\t' '$7 !~ "[^-+]"' {output}
+        iconv -f utf-8 -t utf-8 -c {input.annotation} | 
+            sed 's/;$//g' |
+            sed 's/=\([^;,]*\),[^;]*/=\1/g' |
+            sed 's/;[^=;]*;/;/g' | sed 's/;[^=;]*$//g' |
+            awk -F'\t' '$7 !~ "[^-+]"' > {output}
         """
 
 rule agat_sq_filter_feature_from_fasta:
@@ -35,7 +34,7 @@ rule agat_sq_filter_feature_from_fasta:
         annotation = f"{config['annotations']}/{{annotation_name}}.filtered.gff",
         genome = lambda wildcards: "{filtered_genomes}/{genome_name}.filtered.fna".format(
             filtered_genomes=config['filtered_genomes'],
-            genome_name=data.loc[data.annotation_name == wildcards.annotation_name, 'genome_name'].item()
+            genome_name=data.loc[data.annotation == wildcards.annotation_name, 'genome'].item()
         )
     output:
         temp(f"{config['filtered_annotations']}/{{annotation_name}}_features_from_fasta.gff")
@@ -129,7 +128,7 @@ rule agat_sp_extract_sequences_filtered:
         annotation = f"{config['filtered_annotations']}/{{annotation_name}}.filtered.gff",
         genome = lambda wildcards: "{filtered_genomes}/{genome_name}.filtered.fna".format(
             filtered_genomes=config['filtered_genomes'],
-            genome_name=data.loc[data.annotation_name == wildcards.annotation_name, 'genome_name'].item()
+            genome_name=data.loc[data.annotation == wildcards.annotation_name, 'genome'].item()
         )
     output:
         f"{config['proteins']}/{{annotation_name}}.filtered.pep.faa"
@@ -154,7 +153,7 @@ rule agat_sp_extract_sequences_raw:
         annotation = f"{config['annotations']}/{{annotation_name}}.gff",
         genome = lambda wildcards: "{genomes}/{genome_name}.fna".format(
             genomes=config['genomes'],
-            genome_name=data.loc[data.annotation_name == wildcards.annotation_name, 'genome_name'].item()
+            genome_name=data.loc[data.annotation == wildcards.annotation_name, 'genome'].item()
         )
     output:
         temp(f"{config['proteins']}/{{annotation_name}}.raw.pep.faa")
