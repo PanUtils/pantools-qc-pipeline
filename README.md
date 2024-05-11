@@ -54,12 +54,13 @@ for file in <annotations>/*.gff3; do mv -- "$file" "${file%.gff3}.gff"; done
 
 By default, the pipeline assumes the genome and annotation files match alphabetically. 
 If this is not the case, a data table needs to be provided in the config
-with the file names of the matching files (tab separated). For example:
+with the file names of the matching genome and annotation files (tab separated). 
+The headers "genome" and "annotation" are required. For example:
 ```tsv
-genome  annotation
+genome      annotation
 genome1.fna annotation1.gff
 genome2.fna annotation2.gff
-...                     ...
+...         ...
 ```
 
 ## Run the pipeline
