@@ -9,6 +9,9 @@ include: 'rules/locations.smk'
 
 rule all:
     input:
+        f"{config['statistics']}/genome_contents_raw.tsv",
+        f"{config['statistics']}/annotation_contents_raw.tsv",
+        f"{config['statistics']}/protein_contents_raw.tsv",
         f"{config['statistics']}/genome_contents_filtered.tsv",
         f"{config['statistics']}/annotation_contents_filtered.tsv",
         f"{config['statistics']}/annotation_statistics.tsv",
@@ -16,7 +19,7 @@ rule all:
         f"{config['metadata']}/annotation_locations.txt",
         f"{config['statistics']}/protein_contents_filtered.tsv",
         f"{config['metadata']}/protein_locations.txt",
-        f"{config['metadata']}/function_locations.txt"
+        #f"{config['metadata']}/function_locations.txt"
 
 rule raw_statistics:
     input:

@@ -1,5 +1,4 @@
 ##gff-version 3
-# /lustre/BIF/nobackup/worku005/bin/miniconda3/envs/bio/bin/liftoff -p 40 -copies -polish -g S288C_chrI.gff -o Y10_chrI.tmp.gff Y10_chrI.fna S288C_chrI.fna
 # Liftoff v1.6.2
 tig00000021rc	Liftoff	gene	9908	11310	.	-	.	ID=Y101;Dbxref=GeneID:851299;Name=PHO11;copy_num_ID=gene-YAR071W_0;coverage=0.999;end_range=226863,.;extra_copy_number=0;gbkey=Gene;gene=PHO11;gene_biotype=protein_coding;locus_tag=YAR071W;partial=true;sequence_ID=0.989;start_range=.,225460;valid_ORFs=0
 tig00000021rc	Liftoff	mRNA	9908	11310	.	-	.	ID=Y101.1;Parent=Y101;Dbxref=GeneID:851299,Genbank:NM_001178239.1;Name=NM_001178239.1;end_range=226863,.;extra_copy_number=0;gbkey=mRNA;gene=PHO11;locus_tag=YAR071W;matches_ref_protein=False;missing_stop_codon=True;partial=true;product=acid phosphatase PHO11;start_range=.,225460;transcript_id=NM_001178239.1;valid_ORF=False

@@ -1,15 +1,40 @@
 import os
 
+rule filter_gff_fields:
+    """
+    Filters the gff fields for PanTools parser compatibility.
+    1. Discard non-utf-8 characters.
+    2. Remove trailing semicolons.
+    3. Only keep the first value for attributes values with multiple values.
+    4. Remove attribute values without key=value format.
+    5. Remove features with unknown strands.
+    TODO: Unknown strands should be dealt with in the PanTools code and not here;
+    agat will fill in the gaps but dealing with these features and their children
+    will be cleaner during the gff parsing step.
+    """
+    input:
+        annotation = f"{config['annotations']}/{{annotation_name}}.gff"
+    output:
+        temp(f"{config['annotations']}/{{annotation_name}}.filtered.gff")
+    shell:
+        """
+        iconv -f utf-8 -t utf-8 -c {input.annotation} | 
+            sed 's/;$//g' |
+            sed 's/=\([^;,]*\),[^;]*/=\1/g' |
+            sed 's/;[^=;]*;/;/g' | sed 's/;[^=;]*$//g' |
+            awk -F'\t' '$7 !~ "[^-+]"' > {output}
+        """
+
 rule agat_sq_filter_feature_from_fasta:
     """
     Compare a fasta and gff file using AGAT.
     Cut all features from the gff file that do not match a fasta sequence. 
     """
     input:
-        annotation = f"{config['annotations']}/{{annotation_name}}.gff",
+        annotation = f"{config['annotations']}/{{annotation_name}}.filtered.gff",
         genome = lambda wildcards: "{filtered_genomes}/{genome_name}.filtered.fna".format(
             filtered_genomes=config['filtered_genomes'],
-            genome_name=data.loc[data.annotation_name == wildcards.annotation_name, 'genome_name'].item()
+            genome_name=data.loc[data.annotation == wildcards.annotation_name, 'genome'].item()
         )
     output:
         temp(f"{config['filtered_annotations']}/{{annotation_name}}_features_from_fasta.gff")
@@ -21,7 +46,7 @@ rule agat_sq_filter_feature_from_fasta:
             --gff {input.annotation} \
             --fasta {input.genome} \
             --output {output} > /dev/null
-        rm {input.genome}.index
+        rm -f {input.genome}.index
         """
 
 
@@ -103,7 +128,7 @@ rule agat_sp_extract_sequences_filtered:
         annotation = f"{config['filtered_annotations']}/{{annotation_name}}.filtered.gff",
         genome = lambda wildcards: "{filtered_genomes}/{genome_name}.filtered.fna".format(
             filtered_genomes=config['filtered_genomes'],
-            genome_name=data.loc[data.annotation_name == wildcards.annotation_name, 'genome_name'].item()
+            genome_name=data.loc[data.annotation == wildcards.annotation_name, 'genome'].item()
         )
     output:
         f"{config['proteins']}/{{annotation_name}}.filtered.pep.faa"
@@ -128,7 +153,7 @@ rule agat_sp_extract_sequences_raw:
         annotation = f"{config['annotations']}/{{annotation_name}}.gff",
         genome = lambda wildcards: "{genomes}/{genome_name}.fna".format(
             genomes=config['genomes'],
-            genome_name=data.loc[data.annotation_name == wildcards.annotation_name, 'genome_name'].item()
+            genome_name=data.loc[data.annotation == wildcards.annotation_name, 'genome'].item()
         )
     output:
         temp(f"{config['proteins']}/{{annotation_name}}.raw.pep.faa")
