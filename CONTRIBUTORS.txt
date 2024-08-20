@@ -1,2 +1,19 @@
 Original implementation:
   Robin van Esch <robinbvanesch@gmail.com>
+
+Snakemake workflow:
+  Robin van Esch <robinbvanesch@gmail.com>
+
+Documentation
+  Robin van Esch <robinbvanesch@gmail.com>
+
+Python scripts
+  Robin van Esch <robinbvanesch@gmail.com>
+  Sandra Smit
+
+Test data
+  Dirk-Jan van Workum
+
+Patch contributors:
+  Dionne Zaal
+    * Added docker file and instructions
