@@ -4,14 +4,14 @@ Original implementation:
 Snakemake workflow:
   Robin van Esch <robinbvanesch@gmail.com>
 
-Documentation
+Documentation:
   Robin van Esch <robinbvanesch@gmail.com>
 
-Python scripts
+Python scripts:
   Robin van Esch <robinbvanesch@gmail.com>
   Sandra Smit
 
-Test data
+Test data:
   Dirk-Jan van Workum
 
 Patch contributors:
