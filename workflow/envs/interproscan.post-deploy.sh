@@ -16,3 +16,4 @@ mv interproscan-${version_major}-${version_minor}/data .
 rm interproscan-${version_major}-${version_minor}-64-bit.tar.gz
 rm interproscan-${version_major}-${version_minor}-64-bit.tar.gz.md5
 rm -rd interproscan-${version_major}-${version_minor}/
+python3 setup.py -f interproscan.properties
