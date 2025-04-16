@@ -40,7 +40,7 @@ rule protein_contents_filtered:
 
 rule annotation_contents_raw:
     input:
-        expand(f"{config['annotations']}/{{annotation_name}}.gff",
+        expand(f"{config['annotations']}/{{annotation_name}}.filtered.gff",
             annotation_name=data.annotation
         )
     output:
