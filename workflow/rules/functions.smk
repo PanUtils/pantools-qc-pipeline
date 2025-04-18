@@ -24,5 +24,5 @@ rule interproscan:
             -i {input.proteins} \
             -o {output} \
             --cpu {threads} \
-            -T {scratch}/interproscan > {log}
+            -T {scratch}/interproscan_{wildcards.annotation_name} > {log}
         """
