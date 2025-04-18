@@ -19,7 +19,7 @@ rule all:
         f"{config['metadata']}/annotation_locations.txt",
         f"{config['statistics']}/protein_contents_filtered.tsv",
         f"{config['metadata']}/protein_locations.txt",
-        f"{config['metadata']}/function_locations.txt"
+        #f"{config['metadata']}/function_locations.txt"
 
 rule raw_statistics:
     input:
