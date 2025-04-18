@@ -20,9 +20,9 @@ rule filter_gff_fields:
         """
         iconv -f utf-8 -t utf-8 -c {input.annotation} | 
             sed 's/;$//g' |
-            sed 's/=\([^;,]*\),[^;]*/=\1/g' |
+            sed 's/=\\([^;,]*\\),[^;]*/=\\1/g' |
             sed 's/;[^=;]*;/;/g' | sed 's/;[^=;]*$//g' |
-            awk -F'\t' '$7 !~ "[^-+]"' > {output}
+            awk -F'\\t' '$7 !~ "[^-+]"' > {output}
         """
 
 rule agat_sq_filter_feature_from_fasta:
@@ -48,7 +48,6 @@ rule agat_sq_filter_feature_from_fasta:
             --output {output} > /dev/null
         rm -f {input.genome}.index
         """
-
 
 rule agat_sp_keep_longest_isoform:
     """
