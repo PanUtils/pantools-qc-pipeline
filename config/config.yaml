@@ -29,7 +29,7 @@ min_len: 1000
 # only keep features of longest isoform
 longest_isoform: False
 
-# minimum size of the CDS open reading frame
+# minimum size of the CDS open reading frame (length in amino acids)
 orf_size: 30
 
 # comma separated list of InterProScan analyses
