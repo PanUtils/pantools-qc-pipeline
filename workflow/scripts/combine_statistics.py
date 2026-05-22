@@ -24,6 +24,9 @@ if __name__ == "__main__":
                     continue
                 if values[0] not in stats:
                     stats[values[0]] = np.zeros(len(snakemake.input))
+                if values[1] == 'na':
+                    values[1] = float("NaN")
+
                 stats[values[0]][i] = values[1]
 
     # write values to csv
