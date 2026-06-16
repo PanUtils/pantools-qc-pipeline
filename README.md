@@ -39,6 +39,14 @@ By default, the pipeline uses the provided test data set as raw input data,
 this can be changed by updating the input paths in the provided config.yaml.
 Filtering parameters, output paths and scratch directory can also be altered.
 
+### Install InterProScan
+InterProScan is required for the functional annotation step which is enabled by using the `functions:` field in the `config.yaml`.
+Please follow the instructions on the [InterProScan website](https://interproscan-docs.readthedocs.io/en/v5/HowToDownload.html) to install InterProScan.
+You can test if InterProScan is installed correctly by running the following command:
+```bash
+interproscan.sh --help
+``````
+
 ## Input data
 Two input directories are required. One with genomic fasta files and one with matching annotations.
 All fasta files must end in *.fna*, all annotations files in *.gff*. 

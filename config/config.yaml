@@ -17,7 +17,7 @@ scratch:
 filtered_genomes: results/genomes_filtered
 filtered_annotations: results/annotations_filtered
 proteins: results/proteins
-functions: results/functions
+functions: results/functions  #remove output directory when no functions should be run
 statistics: results/statistics
 metadata: results/metadata
 

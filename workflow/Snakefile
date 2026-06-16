@@ -7,6 +7,12 @@ include: 'rules/functions.smk'
 include: 'rules/statistics.smk'
 include: 'rules/locations.smk'
 
+def get_function_locations(wildcards):
+    filelist = []
+    if config["functions"]:
+        filelist.append(f"{config['metadata']}/function_locations.txt")
+    return filelist
+
 rule all:
     input:
         f"{config['statistics']}/genome_contents_raw.tsv",
@@ -19,7 +25,7 @@ rule all:
         f"{config['metadata']}/annotation_locations.txt",
         f"{config['statistics']}/protein_contents_filtered.tsv",
         f"{config['metadata']}/protein_locations.txt",
-        #f"{config['metadata']}/function_locations.txt"
+        get_function_locations,
 
 rule raw_statistics:
     input:
@@ -42,4 +48,4 @@ rule proteins:
 
 rule functions:
     input:
-        f"{config['metadata']}/function_locations.txt"
+        get_function_locations,
